@@ -1,0 +1,102 @@
+def pertenece_a_matriz (m:list[list[int]], e:int) -> list[bool]:
+    l:list[int] =[]
+    for a in m:
+        l.append(pertenece(a,e))
+    return l
+            
+def pertenece (l:list[int], e:int) ->bool:
+    for a in l:
+        if e == a:
+            return True
+    else:
+        return False
+
+#print (pertenece_a_matriz([[1,2,3,4,5], [2,2,5,2,2],[]], 2))
+
+def contar_lineas (file:str):
+    f = (open (file+".txt", "r"))
+    return (len(f.readlines()))
+
+
+
+
+
+def clonar_sin_comentarios (file:str):
+    f= open (file+".txt", "r")
+    nf = open("clone"+file+".txt", "w")
+    for line in f.readlines():
+        if not es_comentario (line):
+            nf.write(line)
+
+def es_comentario(l:str)->bool:
+    for a in l:
+        if a == "#":
+            return True
+        if a != " ":
+            return False
+
+#print (clonar_sin_comentarios("hola"))
+
+
+from queue import LifoQueue as Pila
+import random
+def generar_numeros_al_azar(cantidad:int, desde:int, hasta:int) -> Pila[int]:
+    pila:Pila[int] = Pila()
+    for a in range(cantidad):
+        pila.put(random.randint(desde, hasta))
+    return pila
+def ver_pila(pila:Pila[int])->list[int]:
+    l:list[int]= []
+    while not pila.empty():
+        l.append(pila.get())
+    return l
+        
+#print( ver_pila(generar_numeros_al_azar(5,10,20)))   
+
+def buscar_el_maximo (p:Pila[int])->int:
+    l:list[int] = []
+    while not p.empty():
+        l.append(p.get())
+    return (max(l))
+#print(buscar_el_maximo(generar_numeros_al_azar(5,0,10)))
+from queue import Queue as Cola
+def generar_numeros_al_azar2(cantidad:int, desde:int, hasta:int) -> Cola[int]:
+    cola:Cola[int] = Cola()
+    for a in range(cantidad):
+        cola.put(random.randint(desde, hasta))
+    return cola
+def ver_cola(cola:Cola[int])->list[int]:
+    l:list[int]= []
+    while not cola.empty():
+        l.append(cola.get())
+    return l
+#print( ver_pila(generar_numeros_al_azar2(5,10,20)))
+
+def armar_secuencia_de_bingo()->Cola[int]:
+    l:list[int] = []
+    for a in range (0,100):
+        l.append(a)
+    random.shuffle(l)
+    cola:Cola[int] = Cola()
+    for a in l:
+        cola.put(a)
+    return cola
+
+#print(ver_cola(armar_secuencia_de_bingo()))
+
+
+def jugar_carton_de_bingo(carton:list[int], bolillero:Cola[int])-> int:
+    i:int = 0
+    for a in range (100):
+        if carton!=[]:
+            if bolillero.get() in carton:
+                carton = sacar_elemento(carton, bolillero.get())
+            i+=1
+        else:
+            pass
+
+def sacar_elemento(carton:list[int], a:int)-> list[int]:
+    l:list[int]= []
+    for i in carton:
+        if i != a:
+            l.append(i)
