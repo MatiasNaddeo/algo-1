@@ -85,18 +85,24 @@ def armar_secuencia_de_bingo()->Cola[int]:
 #print(ver_cola(armar_secuencia_de_bingo()))
 
 
+
 def jugar_carton_de_bingo(carton:list[int], bolillero:Cola[int])-> int:
     i:int = 0
     for a in range (100):
         if carton!=[]:
-            if bolillero.get() in carton:
-                carton = sacar_elemento(carton, bolillero.get())
+            numero:int = bolillero.get()
+            if numero in carton:
+                carton = sacar_elemento(carton, numero)
             i+=1
         else:
             pass
+    return i
 
 def sacar_elemento(carton:list[int], a:int)-> list[int]:
     l:list[int]= []
     for i in carton:
         if i != a:
             l.append(i)
+    return l
+
+print(jugar_carton_de_bingo([1], armar_secuencia_de_bingo()))
